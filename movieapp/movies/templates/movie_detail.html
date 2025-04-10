@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ movie.name }}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<h1>Movie Listings @ GV Cinema</h1>
+
+<a href="{% url 'movies' %}" class="back-btn">Back</a>
+
+<h2>{{ movie.name }}</h2>
+<center><p style="color:#666;">({{ movie.mpaa_type }} — {{ movie.mpaa_label }})</p></center>
+<br>
+
+<div class="movie-detail-container">
+  <div class="poster">
+    {% if movie.imgPath %}
+      <img src="{% static movie.imgPath %}" alt="{{ movie.name }}">
+    {% endif %}
+  </div>
+
+  <div class="details">
+    <h3 style="color: #fff;">Details</h3>
+    <div class="meta"><strong>Genre:</strong> {{ movie.genre.all|join:", " }}</div>
+    <div class="meta"><strong>Language:</strong> {{ movie.language }}</div>
+    <div class="meta"><strong>Duration:</strong> {{ movie.duration }} minutes</div>
+    <div class="meta"><strong>User Rating:</strong> {{ movie.userRating|floatformat:1 }} / 5.0</div>
+
+    <h3 style="color: #fff;">Synopsis</h3>
+    <p class="synopsis">{{ movie.description }}</p>
+  </div>
+</div>
+
+</body>
+</html>

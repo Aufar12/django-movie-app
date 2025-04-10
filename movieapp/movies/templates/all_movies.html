@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Listings</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<h1>Movie Listings @ GV Cinema</h1>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Search movies...">
+</div>
+
+<h2>Popular Movies this month</h2>
+
+<div id="movieGrid" class="grid-container">
+  {% for movie in movies %}
+    <a href="{% url 'movie-detail' movie.id %}">
+      <div class="movie-tile" data-name="{{ movie.name|lower }}">
+        {% if movie.imgPath %}
+          <img src="{% static movie.imgPath %}" alt="{{ movie.name }}">
+        {% endif %}
+        <div class="movie-title">{{ movie.name }}</div>
+        <div class="movie-meta">{{ movie.duration }} min</div>
+        <div class="movie-meta">User Rating: {{ movie.userRating|floatformat:1 }} / 5.0</div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+<p id="noResults" class="no-results">No movies found.</p>
+
+<script src="{% static 'js/searchbar.js' %}"></script>
+
+</body>
+</html>
